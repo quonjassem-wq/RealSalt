@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Trash2, Bitcoin, DollarSign, CreditCard, Wallet, MessageCircle } from "lucide-react";
 import { useMemo, useState } from "react";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "@/assets/logo.png";
 import { DISCORD_URL } from "@/components/Footer";
+<img src={logo} />
 
 export const Route = createFileRoute("/purchase")({
   head: () => ({
