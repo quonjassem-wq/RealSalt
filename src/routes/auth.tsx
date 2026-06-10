@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
-
-const logo = new URL("@/assets/logo.png", import.meta.url).href;
 <img src={logo} alt="" />
 
 export const Route = createFileRoute("/auth")({
