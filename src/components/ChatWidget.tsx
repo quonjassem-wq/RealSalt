@@ -3,7 +3,8 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send } from "lucide-react";
 import { useState, useRef, useEffect, useMemo } from "react";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "@/assets/logo.png";
+<img src={logo} />
 
 const transport = new DefaultChatTransport({ api: "/api/chat" });
 

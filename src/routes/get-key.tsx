@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { Check, MessageCircle, ExternalLink, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "@/assets/logo.png";
 import { DISCORD_URL } from "@/components/Footer";
 import { startAdSession } from "@/lib/keys.functions";
 import { getHwid } from "@/lib/hwid";
+<img src={logo} />
 
 export const Route = createFileRoute("/get-key")({
   head: () => ({

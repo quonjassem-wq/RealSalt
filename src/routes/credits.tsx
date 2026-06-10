@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import owner from "@/assets/owner.png";
 import coowner from "@/assets/coowner.png";
-<img src={owner} />
-<img src={coowner} />
+<><img src={owner} /><img src={coowner} /></>
 
 export const Route = createFileRoute("/credits")({
   head: () => ({
