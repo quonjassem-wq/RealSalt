@@ -21,11 +21,9 @@ import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as BannedRouteImport } from './routes/banned'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as ApiPublicValidateRouteImport } from './routes/api/public/validate'
 
 const WarnRoute = WarnRouteImport.update({
   id: '/warn',
@@ -87,10 +85,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -102,13 +96,8 @@ const ApiChatRoute = ApiChatRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
+  id: '/_authenticated/admin',
   path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const ApiPublicValidateRoute = ApiPublicValidateRouteImport.update({
-  id: '/api/public/validate',
-  path: '/api/public/validate',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -128,7 +117,6 @@ export interface FileRoutesByFullPath {
   '/warn': typeof WarnRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
-  '/api/public/validate': typeof ApiPublicValidateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -146,12 +134,10 @@ export interface FileRoutesByTo {
   '/warn': typeof WarnRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
-  '/api/public/validate': typeof ApiPublicValidateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/banned': typeof BannedRoute
@@ -166,7 +152,6 @@ export interface FileRoutesById {
   '/warn': typeof WarnRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
-  '/api/public/validate': typeof ApiPublicValidateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -186,7 +171,6 @@ export interface FileRouteTypes {
     | '/warn'
     | '/admin'
     | '/api/chat'
-    | '/api/public/validate'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -204,11 +188,9 @@ export interface FileRouteTypes {
     | '/warn'
     | '/admin'
     | '/api/chat'
-    | '/api/public/validate'
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
     | '/about'
     | '/auth'
     | '/banned'
@@ -223,12 +205,10 @@ export interface FileRouteTypes {
     | '/warn'
     | '/_authenticated/admin'
     | '/api/chat'
-    | '/api/public/validate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BannedRoute: typeof BannedRoute
@@ -241,8 +221,8 @@ export interface RootRouteChildren {
   KeySuccessRoute: typeof KeySuccessRoute
   PurchaseRoute: typeof PurchaseRoute
   WarnRoute: typeof WarnRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   ApiChatRoute: typeof ApiChatRoute
-  ApiPublicValidateRoute: typeof ApiPublicValidateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -331,13 +311,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -357,32 +330,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/api/public/validate': {
-      id: '/api/public/validate'
-      path: '/api/public/validate'
-      fullPath: '/api/public/validate'
-      preLoaderRoute: typeof ApiPublicValidateRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BannedRoute: BannedRoute,
@@ -395,9 +349,19 @@ const rootRouteChildren: RootRouteChildren = {
   KeySuccessRoute: KeySuccessRoute,
   PurchaseRoute: PurchaseRoute,
   WarnRoute: WarnRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   ApiChatRoute: ApiChatRoute,
-  ApiPublicValidateRoute: ApiPublicValidateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
