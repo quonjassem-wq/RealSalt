@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import owner from "@/assets/owner.png.asset.json";
-import coowner from "@/assets/coowner.png.asset.json";
+import logo from "@/assets/owner.png";
+import logo from "@/assets/coowner.png";
+<img src={logo} />
 
 export const Route = createFileRoute("/credits")({
   head: () => ({
