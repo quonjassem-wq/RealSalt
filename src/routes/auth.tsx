@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
-<img src={logo} alt="" />
+<img src={logo} />
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Sign In — Salt" }, { name: "robots", content: "noindex" }] }),
