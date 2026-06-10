@@ -2,10 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Download, MessageCircle, Sparkles, Shield, Zap } from "lucide-react";
 import { useState } from "react";
-// import logo from "@/assets/logo.png";
 import { StatusBadge } from "@/components/StatusBadge";
 import { DISCORD_URL } from "@/components/Footer";
-// <img src={logo} />
 
 export const Route = createFileRoute("/")({
   head: () => ({

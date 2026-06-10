@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// import logo from "@/assets/logo.png";
-// <img src={logo} />
+
 
 const STORAGE_KEY = "salt.sorry";
 

@@ -2,9 +2,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Menu, X, LogIn, LogOut, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
-// import logo from "@/assets/logo.png";
 import { supabase } from "@/integrations/supabase/client";
-// <img src={logo} />
 
 const NAV = [
   { to: "/", label: "Home" },

@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Music, MapPin, Calendar, Github, Globe } from "lucide-react";
-// import logo from "@/assets/owner.png";
-// <img src={logo} />
 
 export const Route = createFileRoute("/info")({
   head: () => ({

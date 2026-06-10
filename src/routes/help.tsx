@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
-// import logo from "@/assets/logo.png";
 import { DISCORD_URL } from "@/components/Footer";
-// <img src={logo} />
 
 export const Route = createFileRoute("/help")({
   head: () => ({
